@@ -9,7 +9,7 @@ Simple Yii Framework Tag Cloud.
 
 ##Installation
 
-- Extract 'YiiTagCloud' folder to **protected/extensions/YiiTagCloud.
+- Extract 'YiiTagCloud' folder to protected/extensions/YiiTagCloud.
 
 ##Usage
 
