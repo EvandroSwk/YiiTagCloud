@@ -10,12 +10,12 @@
  *              'maxFontSize' => 20,
  *              'htmlOptions' => array('style'=>'width: 400px; margin-left: auto; margin-right: auto'),
  *              'arrTags' => array (
- *                      "MVC" 		=> array('weight'=> 2),
- *                      "PHP" 		=> array('weight'=> 9, 'url' => 'http://php.net'),
- *                      "MySQL" 	=> array('weight'=> 8, 'url' => 'http://mysql.com'),
- *                      "jQuery" 	=> array('weight'=> 6, 'url' => 'http://jquery.com'),
- *                      "SQL" 		=> array('weight'=> 9),
- *                      "C#" 		=> array('weight'=> 2),
+ *                      "MVC"       => array('weight'=> 2),
+ *                      "PHP"       => array('weight'=> 9, 'url' => 'http://php.net'),
+ *                      "MySQL"     => array('weight'=> 8, 'url' => 'http://mysql.com'),
+ *                      "jQuery"    => array('weight'=> 6, 'url' => 'http://jquery.com'),
+ *                      "SQL"       => array('weight'=> 9),
+ *                      "C#"        => array('weight'=> 2),
  *              ),
  *          )
  * );
@@ -142,7 +142,11 @@ class YiiTagCloud extends CWidget
     }
 
     public function calcFontSize($weight) {
-		return round(((($weight - $this->minWeight) * ($this->maxFontSize - $this->minFontSize)) / ($this->maxWeight - $this->minWeight)) + $this->minFontSize);
+        //Just a precaution, it shouldn't happen if all weights are > 0
+        if ($this->maxWeight - $this->minWeight == 0)
+            return round(($weight - $this->minWeight) + $this->minFontSize);
+
+    return round(((($weight - $this->minWeight) * ($this->maxFontSize - $this->minFontSize)) / ($this->maxWeight - $this->minWeight)) + $this->minFontSize);
     }
 
     public function genereteColors () {
@@ -158,7 +162,7 @@ class YiiTagCloud extends CWidget
         $G1 = ($endColor & 0x00ff00) >> 8;
         $B1 = ($endColor & 0x0000ff) >> 0;
 
-        $numColors = $theNumSteps = count($this->arrFontColor);
+        $numColors = count($this->arrFontColor);
         
         $i =0;
         foreach ($this->arrFontColor as &$value) {
